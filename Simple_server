@@ -1,0 +1,62 @@
+// Assignment 02
+// Simple Server - HTTP Methods
+
+// Write a simple server to handle the following
+// GET/books
+// PUT/books
+// DELETE/books
+// GET/books/author/
+// POST/books/author/
+// PUT/books/author/
+
+// NB. Whatever the response to each of these endpoints, is up to you to decide.
+const http = require('http');
+
+const hostname = 'localhost';
+const port = 8900;
+
+const server = http.createServer((req, res) => {
+  const { method, url } = req;
+
+  switch (url) {
+    case '/books':
+      if (method === 'GET') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ message: 'GET all books' }));
+      } else if (method === 'PUT') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ message: 'PUT books' }));
+      } else if (method === 'DELETE') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ message: 'DELETE books' }));
+      }
+      break;
+    case '/books/author':
+      if (method === 'GET') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ message: 'GET books by author' }));
+      } else if (method === 'POST') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ message: 'POST books by author' }));
+      } else if (method === 'PUT') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ message: 'PUT books by author' }));
+      }
+      break;
+    default:
+      res.statusCode = 404;
+      res.setHeader('Content-Type', 'text/plain');
+      res.end('Not Found');
+      break;
+  }
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
